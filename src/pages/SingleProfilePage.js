@@ -11,9 +11,9 @@ export default function SingleProfilePage() {
     <div>
         <h1>SingleProfilePage</h1>
         <br />
-        <h3>{location.state.profile.prenom} {location.state.profile.nom}</h3>
+        <h3>{location.state.profile.firstname} {location.state.profile.lastname}</h3>
         <p>{location.state.profile.age}</p>
-        <p>{location.state.profile.twt}</p>
+        <p>{location.state.profile.email}</p>
     </div>
   )
 }

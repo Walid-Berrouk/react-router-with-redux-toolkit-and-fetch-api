@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+
+import { useSelector, useDispatch  } from 'react-redux'
+import { increment, decrement, incrementByValue } from '../redux/slices/counter'
+import { logIn, logOut } from '../redux/slices/logger'
 
 export default function SubComponent(props) {
 
-  const [count, setCount] = useState(0)
+  const counter = useSelector(state => state.counter)
+  const logger = useSelector(state => state.logger)
 
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    console.log("Count changed !")
-  }, [count])
 
   return (
     <div>
-        <h1>Count : {count}</h1>
-        <button onClick={() => setCount(count + 1)}>Click me</button>
+        <h1>Count : {counter.value}</h1>
+        <button onClick={() => dispatch(increment())}>Inc</button>
+        <button onClick={() => dispatch(decrement())}>Dec</button>
+        <button onClick={() => dispatch(incrementByValue(10))}>Inc By 10</button>
+
+
+        <h1>isLogged : {logger.isLogged ? "true" : "false"}</h1>
+        <button onClick={() => dispatch(logIn())}>Log In</button>
+        <button onClick={() => dispatch(logOut())}>Log Out</button>
     </div>
   )
 }
