@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
+
+import HomePage from './pages/HomePage'
+import ContactPage from './pages/ContactPage'
+import AboutPage from './pages/AboutPage'
+import PrivateRoute from './components/PrivateRoute'
+
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import ProfilesPage from './pages/ProfilesPage'
+import SingleProfilePage from './pages/SingleProfilePage'
+
+function Main() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Navbar />
+        <Outlet />
+        <Footer />
     </div>
-  );
+  )
 }
 
-export default App;
+function App() {
+
+
+  return (
+    <>
+      <Routes>
+        <Route path="main" element={<Main />}>
+          <Route path="home" element={<HomePage />} />
+          <Route path="about" element={<AboutPage /> } />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="profiles" element={<ProfilesPage />} />
+          <Route path="profiles/:id" element={
+               <PrivateRoute isAuth={true}>
+                <SingleProfilePage />
+              </PrivateRoute>
+          } />
+        </Route>
+        <Route
+            path="*"
+            element={<Navigate to="/main/home" />}
+        />
+      </Routes>
+    </>
+  )
+}
+
+export default App
